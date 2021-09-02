@@ -115,8 +115,8 @@ const showBooks = (data) =>{
                 <img src=${img} class=" text-center mx-auto card-img-top" width="337px"  height="330px" alt="...">
                 <div class="card-body">
                   <h5 class="card-title text-primary">Book-Name: ${book.title}</h5>
-                  <h6>Author: ${book.author_name}</h6>
-                  <h6>First-Publication: ${book.first_publish_year}</h6>
+                  <h6>Author: ${book.author_name ? book.author_name:"not available"}</h6>
+                  <h6>First-Publication: ${book.first_publish_year ? book.first_publish_year:"not available" }</h6>
                   <h6> Publisher: ${publisher} </h6>
                   
                 </div>
