@@ -112,7 +112,7 @@ const showBooks = (data) =>{
                 column.innerHTML += `
                 <div class="col ">
                 <div class="card">
-                <img src=${img} class=" text-center mx-auto" width="337px"  height="330px" alt="...">
+                <img src=${img} class=" text-center mx-auto card-img-top" width="337px"  height="330px" alt="...">
                 <div class="card-body">
                   <h5 class="card-title text-primary">Book-Name: ${book.title}</h5>
                   <h6>Author: ${book.author_name}</h6>
