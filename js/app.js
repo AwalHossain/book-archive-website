@@ -83,10 +83,10 @@ const showBooks = (data) =>{
         bookDetails.forEach(book =>{
 
                 resultFound.style.display = 'block';
-                resultFound.innerText = `We have got total ${data.num_found} result but only showing you ${bookDetails.length}` 
+                resultFound.innerText = `We have got total ${data.num_found} result & showing you ${bookDetails.length}` 
                 let publisher;
             if(book.publisher === undefined){
-                publisher = "no available"
+                publisher = "not available"
             }
             else{
                publisher =    book.publisher[0];
@@ -102,9 +102,9 @@ const showBooks = (data) =>{
                 column.innerHTML += `
                 <div class="col ">
                 <div class="card">
-                <img src=${img} class=" text-center mx-auto" width="335px"  height="330px" alt="...">
+                <img src=${img} class=" text-center mx-auto" width="337px"  height="330px" alt="...">
                 <div class="card-body">
-                  <h5 class="card-title">Book-Name: ${book.title}</h5>
+                  <h5 class="card-title text-primary">Book-Name: ${book.title}</h5>
                   <h6>Author: ${book.author_name}</h6>
                   <h6>First-Publication: ${book.first_publish_year}</h6>
                   <h6> Publisher: ${publisher} </h6>

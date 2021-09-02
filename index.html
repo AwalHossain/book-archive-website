@@ -7,19 +7,23 @@
     <title>Weather Api</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <style>
+        body{
+            background-color: #85dcb8;
+        }
     </style>
 </head>
 <body>
     <header>
-        <div class="row col-md-6 gx-5 m-auto mb-5" action="">
-            <div class=" input-group mb-5 my-5 ">
+        <h1 class="text-center text-white my-5 mb-0 display-5 fw-bold"> Book Archive </h1>
+        <div class="row col-md-6 gx-5 m-auto mb-5 mt-0" action="">
+            <div class=" input-group mb-5 my-2 ">
                 <input id="input" type="text" class="form-control" placeholder="Enter your favourite book name ..." aria-label="book name" aria-describedby="book name">
                 <button class="btn btn-outline-light bg-danger " type="button" id="search">Search</button>
               </div>
          </div>
     </header>
     <main class="contanier">
-        <h5 class="displayError text-center text-danger">sorry not avialable </h5>
+        <h2 class="displayError text-center text-danger">sorry not avialable </h2>
         <aside>
             <!-- <div class="spinner-grow hidden mx-auto" role="status">
                 <span class="visually-hidden ">Loading...</span>
@@ -29,11 +33,11 @@
               </div>
         </aside>
         <div class="error-part">
-            <h5 class="not-found text-center text-danger"></h5>
-            <h5 class="result-found text-center text-success  mb-5"> </h5>
+            <h2 class="not-found text-center text-danger"></h2>
+            <h2 class="result-found text-center text-white  mb-5"> </h2>
         </div>
 
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 column container mx-auto">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 column container mx-auto rounded-2">
 
 
 
