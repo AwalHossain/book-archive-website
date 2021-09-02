@@ -5,20 +5,24 @@ const column = document.querySelector('.column')
 const container = document.querySelector('.container')
 const resultFound = document.querySelector('.result-found');
 const displayError = document.querySelector('.displayError')
-
-
-//search input function 
+const notFound= document.querySelector('.not-found')
+const errorPart = document.querySelector('.error-part')
+displayError.style.display = 'none';
+//================search input function======================== 
 searchBtn.addEventListener('click', ()=>{
     const searchText = input.value
+    notFound.style.display='none'
+    // if input is empty then this condition will be true
     if(searchText === ''){
         console.log('Please input valid name');
         displayError.style.display = 'block';
     displayError.innerText = `Put something in the input field`;
     resultFound.style.display = 'none'
+    notFound.style.display='none'
         column.textContent = '';
     }
     else{
-        
+        notFound.style.display='block';
         displayError.style.display = 'none';
         const url = `http://openlibrary.org/search.json?q=${searchText}`; 
         fetchApi(url)
@@ -28,29 +32,26 @@ searchBtn.addEventListener('click', ()=>{
 })
 
 
+//==============Fetching Book API========================
 const fetchApi = (url) =>{
 
 
-        try{
+        
             fetch(url)
             .then(response => response.json())
             .then(data => showBooks(data))
-        }
-        catch(error){
-            displayError.innerText = "Soorrry"
-        }
-    // const showError =() =>{
-    //     console.log(error)
-    //     displayError.innerText= `Sorry not available`
-    // }
+            .catch(error => showError(error))
+
 }
 
-//display error if not found search result
+//===============display error if not found search result===================
+const showError = error =>{
+    console.log(error)
+    displayError.style.display = 'block';
+}
 
 
 
-
-let num = 0;
 const showBooks = (data) =>{
 
     const bookDetails = data.docs;
@@ -58,21 +59,17 @@ const showBooks = (data) =>{
     container.textContent = '';
     if(bookDetails.length == 0){
         console.log("not found");
+        notFound.innerText = "Sorry, not found"
+        resultFound.style.display = 'none';
     }
     else{
         console.log(data.num_found);
         bookDetails.forEach(book =>{
-            num++;
             console.log(book);
                 resultFound.style.display = 'block';
                 resultFound.innerText = `We have got total ${data.num_found} result but only showing you ${bookDetails.length}` 
                 displayError.style.display = 'none';
-              
-                if(bookDetails.length == 0){
-                    console.log("not found");
-                }
-    
-    
+                notFound.style.display = 'none'
                 column.innerHTML += `
                 <div class="col ">
                 <div class="card">
