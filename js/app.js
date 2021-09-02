@@ -3,15 +3,20 @@ const input = document.getElementById('input');
 const searchBtn = document.getElementById('search')
 const column = document.querySelector('.column')
 const container = document.querySelector('.container')
-const resultFound = document.querySelector('.result-found')
+const resultFound = document.querySelector('.result-found');
+const displayError = document.querySelector('.displayError')
 searchBtn.addEventListener('click', ()=>{
     const searchText = input.value
     if(searchText === ''){
         console.log('Please input valid name');
-        resultFound.innerText = `Put something in the input field`;
+        displayError.style.display = 'block';
+    displayError.innerText = `Put something in the input field`;
+    resultFound.style.display = 'none'
         column.textContent = '';
     }
     else{
+        resultFound.style.display = 'block';
+        displayError.style.display = 'none';
         const url = `http://openlibrary.org/search.json?q=${searchText}`; 
         fetchApi(url)
     }
@@ -24,11 +29,21 @@ const fetchApi = (url) =>{
     fetch(url)
     .then(response => response.json())
     .then(data => showBooks(data))
-    .catch(error => {
-        console.log(error, "not found");
-    })
-   
+    .catch(error =>
+        {
+console.log(error);
+        }
+         )
+    // const showError =() =>{
+    //     console.log(error)
+    //     displayError.innerText= `Sorry not available`
+    // }
 }
+
+//display error if not found search result
+
+
+
 
 let num = 0;
 const showBooks = (data) =>{
@@ -41,8 +56,13 @@ const showBooks = (data) =>{
         console.log(book);
         num++;
         if(num === 20){
+            resultFound.style.display = 'block';
             resultFound.innerText = `We have got total ${bookDetails.length} result but only showing you 20` 
+            displayError.style.display = 'none';
           bookDetails.length=0;
+        }
+        else if(num == 0){
+            console.log("not");
         }
         else{
             column.innerHTML += `
@@ -52,7 +72,7 @@ const showBooks = (data) =>{
             <div class="card-body">
               <h5 class="card-title">Book-Name: ${book.title}</h5>
               <h6>Author: ${book.author_name}</h6>
-              <h6>First-Publication: ${book.author_name}</h6>
+              <h6>First-Publication: ${book.first_publish_year}</h6>
               <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
             </div>
             </div>
