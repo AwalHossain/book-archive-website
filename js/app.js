@@ -25,6 +25,7 @@ searchBtn.addEventListener('click', ()=>{
     notFound.style.display='none'
     toggleSpinner('block');
     toggleSearchResult('none')
+    resultFound.style.display = 'none'
     // if input is empty then this condition will be true
     if(searchText === ''){
         console.log('Please input valid name');
@@ -33,7 +34,7 @@ searchBtn.addEventListener('click', ()=>{
     resultFound.style.display = 'none'
     notFound.style.display='none'
         column.textContent = '';
-        // toggleSpinner('none');
+        toggleSpinner('none');
     }
     else{
         displayError.style.display = 'none';
@@ -73,7 +74,7 @@ const showBooks = (data) =>{
         notFound.style.display = 'block';
         notFound.innerText = "Sorry, not found"
         resultFound.style.display = 'none';
-        // toggleSpinner('none');
+        toggleSpinner('none');
     }
     else{
         console.log(data.num_found);
