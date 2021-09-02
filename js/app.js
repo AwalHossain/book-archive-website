@@ -61,6 +61,7 @@ const fetchApi = (url) =>{
 const showError = error =>{
     console.log(error)
     displayError.style.display = 'block';
+    resultFound.style.display = 'none';
 }
 
 
@@ -78,22 +79,36 @@ const showBooks = (data) =>{
     }
     else{
         console.log(data.num_found);
-     
+        let img;
         bookDetails.forEach(book =>{
-            console.log(book);
+
                 resultFound.style.display = 'block';
                 resultFound.innerText = `We have got total ${data.num_found} result but only showing you ${bookDetails.length}` 
+                let publisher;
+            if(book.publisher === undefined){
+                publisher = "no available"
+            }
+            else{
+               publisher =    book.publisher[0];
+            }
+                if( book.cover_i === undefined ){
+                 img = `img/image-not-available.svg`;
+                }
+                else{
+                     img = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
+                }
                 displayError.style.display = 'none';
                 notFound.style.display = 'none'
                 column.innerHTML += `
                 <div class="col ">
                 <div class="card">
-                <img src="https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg" class="img-fluid text-center" alt="...">
+                <img src=${img} class=" text-center mx-auto" width="335px"  height="330px" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">Book-Name: ${book.title}</h5>
                   <h6>Author: ${book.author_name}</h6>
                   <h6>First-Publication: ${book.first_publish_year}</h6>
-                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <h6> Publisher: ${publisher} </h6>
+                  
                 </div>
                 </div>
                 </div>
