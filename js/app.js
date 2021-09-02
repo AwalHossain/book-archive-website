@@ -1,4 +1,4 @@
-// Selector
+// Selector section where all the selector are stacked together
 const input = document.getElementById('input');
 const searchBtn = document.getElementById('search')
 const column = document.querySelector('.column')
@@ -9,6 +9,7 @@ const notFound= document.querySelector('.not-found')
 const errorPart = document.querySelector('.error-part')
 const spinner = document.querySelector('.hidden')
 
+// Global call 
 displayError.style.display = 'none';
 spinner.style.display= 'none'
 
@@ -16,11 +17,13 @@ spinner.style.display= 'none'
 const toggleSpinner = showSpinner =>{
     spinner.style.display = showSpinner
 } 
+//=================== Toggle searchResult section ==================
 const toggleSearchResult = showSpinner =>{
     column.style.display = showSpinner
 } 
 //================search input function======================== 
 searchBtn.addEventListener('click', ()=>{
+
     const searchText = input.value
     notFound.style.display='none'
     toggleSpinner('block');
@@ -30,9 +33,9 @@ searchBtn.addEventListener('click', ()=>{
     if(searchText === ''){
         console.log('Please input valid name');
         displayError.style.display = 'block';
-    displayError.innerText = `Put something in the input field`;
-    resultFound.style.display = 'none'
-    notFound.style.display='none'
+        displayError.innerText = `Put something in the input field`;
+        resultFound.style.display = 'none'
+        notFound.style.display='none'
         column.textContent = '';
         toggleSpinner('none');
     }
@@ -65,11 +68,12 @@ const showError = error =>{
 }
 
 
-
+//  Display result below this function
 const showBooks = (data) =>{
     const bookDetails = data.docs;
 
     container.textContent = '';
+    // ====if books not found then show error else show the result with this condition
     if(bookDetails.length == 0){
         console.log("not found");
         notFound.style.display = 'block';
@@ -80,25 +84,31 @@ const showBooks = (data) =>{
     else{
         console.log(data.num_found);
         let img;
+        // loop through all the data to get the exact data with the help of forEach
         bookDetails.forEach(book =>{
 
                 resultFound.style.display = 'block';
+                displayError.style.display = 'none';
+                notFound.style.display = 'none'
                 resultFound.innerText = `We have got total ${data.num_found} result & showing you ${bookDetails.length}` 
+
+                //=======some publisher is not defined that's why need a conditon=======
                 let publisher;
-            if(book.publisher === undefined){
-                publisher = "not available"
-            }
-            else{
-               publisher =    book.publisher[0];
-            }
+                if(book.publisher === undefined){
+                    publisher = "not available"
+                  }
+                else{
+                  publisher =    book.publisher[0];
+                   }
+                 //=======some image is not working so,that's why need a defult one======= 
                 if( book.cover_i === undefined ){
                  img = `img/image-not-available.svg`;
                 }
                 else{
                      img = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
                 }
-                displayError.style.display = 'none';
-                notFound.style.display = 'none'
+                // ===== And at last, show the result with innerHTML
+
                 column.innerHTML += `
                 <div class="col ">
                 <div class="card">
