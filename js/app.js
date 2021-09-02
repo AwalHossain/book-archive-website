@@ -7,11 +7,24 @@ const resultFound = document.querySelector('.result-found');
 const displayError = document.querySelector('.displayError')
 const notFound= document.querySelector('.not-found')
 const errorPart = document.querySelector('.error-part')
+const spinner = document.querySelector('.hidden')
+
 displayError.style.display = 'none';
+spinner.style.display= 'none'
+
+//=================== Toggle spinner section ==================
+const toggleSpinner = showSpinner =>{
+    spinner.style.display = showSpinner
+} 
+const toggleSearchResult = showSpinner =>{
+    column.style.display = showSpinner
+} 
 //================search input function======================== 
 searchBtn.addEventListener('click', ()=>{
     const searchText = input.value
     notFound.style.display='none'
+    toggleSpinner('block');
+    toggleSearchResult('none')
     // if input is empty then this condition will be true
     if(searchText === ''){
         console.log('Please input valid name');
@@ -20,9 +33,9 @@ searchBtn.addEventListener('click', ()=>{
     resultFound.style.display = 'none'
     notFound.style.display='none'
         column.textContent = '';
+        // toggleSpinner('none');
     }
     else{
-        notFound.style.display='block';
         displayError.style.display = 'none';
         const url = `http://openlibrary.org/search.json?q=${searchText}`; 
         fetchApi(url)
@@ -41,7 +54,6 @@ const fetchApi = (url) =>{
             .then(response => response.json())
             .then(data => showBooks(data))
             .catch(error => showError(error))
-
 }
 
 //===============display error if not found search result===================
@@ -53,17 +65,19 @@ const showError = error =>{
 
 
 const showBooks = (data) =>{
-
     const bookDetails = data.docs;
 
     container.textContent = '';
     if(bookDetails.length == 0){
         console.log("not found");
+        notFound.style.display = 'block';
         notFound.innerText = "Sorry, not found"
         resultFound.style.display = 'none';
+        // toggleSpinner('none');
     }
     else{
         console.log(data.num_found);
+     
         bookDetails.forEach(book =>{
             console.log(book);
                 resultFound.style.display = 'block';
@@ -88,6 +102,8 @@ const showBooks = (data) =>{
     
     
         })
+        toggleSpinner('none');
+        toggleSearchResult('flex')
     }   
     
 
